@@ -1,0 +1,41 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>me.epicgodmc.mccc</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Minecraft Config Completer</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="epicgodmc70@gmail.com" url="">EpicGodMC</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+    Allows you to autocomplete various elements in config files.<br>
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <completion.contributor
+                language="yaml"
+                implementationClass="me.epicgodmc.mccc.McCompletionContributor"
+        />
+        <postStartupActivity implementation="me.epicgodmc.mccc.data.CompletionBank"/>
+
+        <applicationService serviceImplementation="me.epicgodmc.mccc.settings.PluginSettingsState"/>
+
+        <applicationConfigurable
+            parentId="tools"
+            instance="me.epicgodmc.mccc.settings.PluginSettingsConfigurable"
+            id="me.epicgodmc.mccc.settings.PluginSettingsConfigurable"
+            displayName="Minecraft Config Completion Settings"/>
+    </extensions>
+</idea-plugin>
